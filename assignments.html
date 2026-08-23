@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Assignments{% endblock %}
+{% block page_title %}Assignments{% endblock %}
+{% block page_subtitle %}{{ assignments|length }} created{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('teacher.new_assignment') }}" class="btn btn-brand btn-sm"><i class="bi bi-plus-lg me-1"></i> New Assignment</a>
+</div>
+<div class="row g-3">
+  {% for a in assignments %}
+  <div class="col-md-6 col-lg-4">
+    <a href="{{ url_for('teacher.assignment_detail', aid=a.id) }}" class="text-decoration-none text-dark">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <span class="badge-pill bg-soft-primary">{{ categories.get(a.category, a.category) }}</span>
+          {% if a.parse_status == 'done' %}<span class="badge-pill bg-soft-accent">AI-ready</span>
+          {% elif a.parse_status == 'processing' %}<span class="badge-pill bg-soft-warning">Processing</span>
+          {% elif a.parse_status == 'failed' %}<span class="badge-pill bg-soft-danger">Parse failed</span>{% endif %}
+        </div>
+        <div class="fw-bold mb-1">{{ a.title }}</div>
+        <div class="text-muted small mb-2">{{ a.instructions[:90] if a.instructions else 'No instructions given.' }}</div>
+        <div class="text-muted small mt-auto"><i class="bi bi-clock"></i> {{ a.created_at.strftime('%d %b %Y') }}
+          {% if a.due_date %} · Due {{ a.due_date.strftime('%d %b') }}{% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+  {% else %}
+  <div class="empty-state w-100"><i class="bi bi-clipboard-check"></i>No assignments yet. Create your first one.</div>
+  {% endfor %}
+</div>
+{% endblock %}

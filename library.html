@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Library{% endblock %}
+{% block page_title %}Digital Library{% endblock %}
+{% block page_subtitle %}{{ books|length }} books across all teachers{% endblock %}
+{% block content %}
+<div class="row g-3">
+  {% for b in books %}
+  <div class="col-md-4 col-lg-3">
+    <div class="card p-3 h-100">
+      <i class="bi bi-journal-richtext fs-2 mb-2" style="color:var(--primary)"></i>
+      <div class="fw-semibold">{{ b.title }}</div>
+      <div class="text-muted small mb-1">{{ b.author or 'Unknown author' }}</div>
+      <span class="badge-pill bg-soft-primary small mb-2 align-self-start">{{ categories.get(b.category, b.category) }}</span>
+      <div class="text-muted small mb-2">By {{ b.teacher.user.full_name if b.teacher else 'Admin' }}</div>
+      <a href="{{ url_for('files.get_file', subfolder='library', filename=b.filename) }}" class="btn btn-sm btn-outline-brand mt-auto" target="_blank"><i class="bi bi-download"></i> Open</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="empty-state w-100"><i class="bi bi-journal-bookmark"></i>No books uploaded yet.</div>
+  {% endfor %}
+</div>
+{% endblock %}
