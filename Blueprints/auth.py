@@ -4,7 +4,7 @@ from extensions import db
 from models import User, TeacherProfile, StudentProfile, Payment
 from helpers import current_user
 
-auth_bp = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth", stephen)
 
 
 @auth_bp.route("/")
