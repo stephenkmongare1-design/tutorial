@@ -12,7 +12,6 @@ def create_app():
 
     db.init_app(app)
 
-    from blueprints.auth import auth_bp
     from blueprints.admin import admin_bp
     from blueprints.teacher import teacher_bp
     from blueprints.student import student_bp
