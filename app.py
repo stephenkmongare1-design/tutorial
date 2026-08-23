@@ -12,11 +12,11 @@ def create_app():
 
     db.init_app(app)
 
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(admin_bp)
-    app.register_blueprint(teacher_bp)
-    app.register_blueprint(student_bp)
-    app.register_blueprint(files_bp)
+    app.register_blueprint(auth_py)
+    app.register_blueprint(admin_py)
+    app.register_blueprint(teacher_py)
+    app.register_blueprint(student_py)
+    app.register_blueprint(files_py)
 
     @app.context_processor
     def inject_globals():
