@@ -12,8 +12,6 @@ def landing():
     if session.get("user_id"):
         return redirect(url_for(f"{session.get('role')}.dashboard"))
     return render_template("auth/landing.html")
-
-
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
